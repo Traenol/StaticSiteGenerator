@@ -1,0 +1,28 @@
+from enum import Enum
+
+class TextType(Enum):
+    TEXT = "text"
+    BOLD = "bold"
+    ITALIC = "italic"
+    CODE = "code"
+    LINK = "link"
+    IMAGE = "image"
+
+class TextNode():
+    def __init__(self, text, text_type, url=None):
+        self.text = text
+        try:
+            self.text_type = TextType(text_type)
+        except:
+            raise ValueError("Text type invalid")
+        self.url = url
+
+    def __eq__(self, value):
+        if type(value) != TextNode:
+            return False
+        if self.url == value.url and self.text == value.text and self.text_type == value.text_type:
+            return True
+        return False
+
+    def __repr__(self):
+        return f"TextNode({self.text}, {self.text_type.name}, {self.url})"
